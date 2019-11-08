@@ -43,6 +43,7 @@ gtag('config', 'UA-112923270-2');
 
   <body>
 {% block login %}
+
 <nav class="navbar navbar-expand-md bg-dark  navbar-dark fixed-top ">
 <a class="navbar-brand mr-auto " href="index.html" style="margin-left: 20px;" ><img src="images/logo.png" width="50" height="40px;"></a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"  >
@@ -51,24 +52,30 @@ gtag('config', 'UA-112923270-2');
 
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
   <ul class="navbar-nav ml-auto">
-    <!--
-    <li class="nav-item ">
-      <a class="nav-link" href="{% url 'home' %}">HOME <span class="sr-only">(current)</span></a>
-    </li>-->
-    <!--
-      <li class="nav-item    ">
-          <a class="nav-link " href="{% url 'event' %}"> EVENT </a></li>-->
 
-<li class="nav-item   "><a class="nav-link " href="{% url 'home' %}"> HOME  </a></li>
-<li class="nav-item   "><a class="nav-link " href="{% url 'event' %}"> EVENT  </a></li>
-      <li class="nav-item   "><a class="nav-link " href="{% url 'login' %}"> LOGIN  </a></li>
+
+
+    <li class="nav-item ">
+      <a class="nav-link" href="">HOME <span class="sr-only">(current)</span></a>
+    </li>
+
+
+      <li class="nav-item    ">
+          <a class="nav-link " href=""> EVENT </a></li>
+
+
+<li class="nav-item   "><a class="nav-link " href=""> HOME  </a></li>
+<li class="nav-item   "><a class="nav-link " href=""> EVENT  </a></li>
+      <li class="nav-item   "><a class="nav-link " href=""> LOGIN  </a></li>
 
           <li class="nav-item   "><a class="nav-link  " href="sponsor.html"> SPONSOR  </a></li>
 
           <li class="nav-item   "><a class="nav-link  " href="gallery.html"> GALLERY </a></li>
   </ul>
+
 </div>
 </nav>
+
 {% endblock %}
 
 
