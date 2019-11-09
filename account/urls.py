@@ -6,5 +6,6 @@ urlpatterns=[
     #homepageview.as_view()
     path('home',views.HomePageView.as_view(),name='home'),
     path('event',views.EventView.as_view(),name='event'),
+    path('register/', views.register, name='register'),
 
 ]
