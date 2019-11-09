@@ -3,11 +3,27 @@
 {% block title %}Log-in{% endblock %}
 
 {% block content %}
-  <h1>Log-in</h1>
-  <p>Please, use the following form to log-in:</p>
-  <form action="." method="post">
-    {{ form.as_p }}
-    {% csrf_token %}
-    <p><input type="submit" value="Log in"></p>
-  </form>
+<div class="container">
+  <h2>Login</h2>
+  <div class="panel-group">
+      <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ field.label_tag }}</div>
+        </div>
+            {{ field }}
+            {% if field.help_text %}
+              <small style="color: grey">{{ field.help_text }}</small>
+            {% endif %}
+            {% for error in field.errors %}
+              <p style="color: red">{{ error }}</p>
+            {% endfor %}
+        {% endfor %}
+        <br><br>
+        <button type="submit">Sign up</button>
+
+      </form>
+
+  </div>
 {% endblock %}

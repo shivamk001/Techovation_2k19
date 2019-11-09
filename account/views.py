@@ -5,6 +5,7 @@ from .models import Profile
 from .forms import UserRegistrationForm, LoginForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 class HomePageView(TemplateView):
@@ -18,7 +19,7 @@ def register(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            #print("USERNAME:", user[0])
+            print("USERNAME:", user[0])
             user.refresh_from_db()
             username = form.cleaned_data.get('username')
             user.profile.first_name = form.cleaned_data.get('first_name')
@@ -47,7 +48,8 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponse('Authenticated Successfully!')
+                    #return HttpResponse('Authenticated Successfully!')
+                    return redirect('dashboard')
 
                 else:
                     return HttpResponse('Disabled account')
@@ -57,5 +59,13 @@ def user_login(request):
 
     else:
         form = LoginForm()
-
     return render(request, 'account/login.html', {'form':form})
+
+@login_required
+def dashboard(request):
+    profile_dictionary={}
+    profile_dictionary['username']=str(request.user.username)
+    profile_dictionary['email']=str(request.user.email)
+    print(profile_dictionary['username'])
+    print(profile_dictionary['email'])
+    return render(request, 'account/dashboard.html',profile_dictionary)

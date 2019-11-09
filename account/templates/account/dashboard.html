@@ -31,10 +31,14 @@
 {% endblock %}
 
 {% block content %}
+
 <div class="container">
   <h1>Dashboard</h1>
-  <p>Welcome to your dashboard. You can <a href="{% url "edit" %}">edit your profile</a> or <a href="{% url "password_change" %}">change your password</a>.</p>
-  <p>Click here to see your <a href="{% url "profile" %}"> profile</a>.
-  <p>Click here to add <a href="{% url "add_event" %}">events</p>
+  {% for key,value in profile_dictionary.items %}
+  <li>{{key}} : {{value}}</li>
+  {% endfor %}
+  <p>Welcome to your dashboard. You can <a href="">edit your profile</a> or <a href="">change your password</a>.</p>
+  <p>Click here to see your <a href=""> profile</a>.
+  <p>Click here to add <a href="">events</p>
 </div>
 {% endblock %}
