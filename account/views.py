@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
-from .models import Profile
-from .forms import UserRegistrationForm, LoginForm, UserEditForm
+from .models import Profile, Participation_Tech, Participation_NonTech, Event_Technical, Event_Non_Technical
+from .forms import UserRegistrationForm, LoginForm, UserEditForm, AddEventsTech, AddEventsNonTech
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -108,7 +108,7 @@ def edit(request):
             if form.cleaned_data['email'] != '':
                 object.email = form.cleaned_data['email']
             '''
-            
+
             if form.cleaned_data['phone_number'] != '':
                 object.phone = form.cleaned_data['phone_number']
 
@@ -122,3 +122,57 @@ def edit(request):
     else:
         form = UserEditForm()
     return render(request, 'account/edit.html', {'form':form})
+
+def add_events_tech(request):
+    if request.method == 'POST':
+        form = AddEventsTech(request.POST)
+
+        if form.is_valid():
+            username = str(request.user.username)
+            list_users = list(Profile.objects.all())
+            for objts in list_users:
+                if str(objts.user) == username:
+                    object_user = objts
+                    break
+
+
+            event_tech =form.cleaned_data['event']
+            list_events = list(Event_Technical.objects.all())
+            for objts in list.events:
+                if str(objts.event_name_tech) == event_tech:
+                    object_event = objts
+            object = Participation_Tech(participant = object_user, event = object_event)
+            object.save()
+
+            return redirect('event_tech')
+
+        else:
+            form = AddEventsTech(request.POST)
+        return render(request, 'account/event_tech_add.html', {'form':form})
+
+def add_events_nontech(request):
+    if request.method == 'POST':
+        form = AddEventsNonTech(request.POST)
+
+        if form.is_valid():
+            username = str(request.user.username)
+            list_users = list(Profile.objects.all())
+            for objts in list_users:
+                if str(objts.user) == username:
+                    object_user = objts
+                    break
+
+
+            event_non_tech =form.cleaned_data['event']
+            list_events = list(Event_Non_Technical.objects.all())
+            for objts in list.events:
+                if str(objts.event_name_tech) == event_tech:
+                    object_event = objts
+            object = Participation_NonTech(participant = object_user, event = object_event)
+            object.save()
+
+            return redirect('event_non_tech')
+
+        else:
+            form = AddEventsTech(request.POST)
+        return render(request, 'account/event_non_tech_add.html', {'form':form})

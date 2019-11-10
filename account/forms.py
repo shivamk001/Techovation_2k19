@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, Participation_Tech, Participation_NonTech, Event_Technical, Event_Non_Technical
 from django.contrib.auth.forms import UserCreationForm
 
 class UserRegistrationForm(UserCreationForm):
@@ -38,3 +38,13 @@ class UserEditForm(forms.ModelForm):
     class Meta:
         model = User
         fields= ('first_name', 'last_name', 'phone_number', 'college')
+
+class AddEventsTech(forms.ModelForm):
+    class Meta:
+        model = Event_Technical
+        fields = ('event_name_tech',)
+
+class AddEventsNonTech(forms.ModelForm):
+    class Meta:
+        model = Event_Non_Technical
+        fields = ('event_name_non_tech',)

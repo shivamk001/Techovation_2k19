@@ -33,28 +33,30 @@
 {% endblock %}
 
 {% block content %}
-<div class="container border border-primary text-center">
+
+
+  <div class="container border border-primary text-center rounded">
   <h2>Edit Details</h2>
   <small>Leave those fields which don't require correction.</small>
-  <div class="panel-group">
-  <form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-    <div class="panel panel-default">
-        <div class="panel-heading">{{ field.label_tag }}</div>
+    <div class="panel-group">
+        <form method="post">
+          {% csrf_token %}
+          {% for field in form %}
+          <div class="panel panel-default">
+              <div class="panel-heading">{{ field.label_tag }}</div>
+          </div>
+              {{ field }}
+              {% if field.help_text %}
+                <small style="color: grey">{{ field.help_text }}</small>
+              {% endif %}
+              {% for error in field.errors %}
+                <p style="color: red">{{ error }}</p>
+              {% endfor %}
+          {% endfor %}
+          <br><br>
+          <button type="submit" class="btn btn-outline-primary">Sign up</button>
+
+        </form>
+
     </div>
-        {{ field }}
-        {% if field.help_text %}
-          <br>
-          <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
-    {% endfor %}
-    <br><br>
-    <button type="submit">Submit</button>
-  </form>
-  </div>
-  </div>
 {% endblock %}
