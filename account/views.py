@@ -64,8 +64,21 @@ def user_login(request):
 @login_required
 def dashboard(request):
     profile_dictionary={}
-    profile_dictionary['username']=str(request.user.username)
-    profile_dictionary['email']=str(request.user.email)
+    username = str(request.user.username)
+    list_users = list(Profile.objects.all())
+    for objts in list_users:
+        if str(objts.user) == username:
+            email = str(objts.email)
+            f_name = str(objts.first_name)
+            l_name = str(objts.last_name)
+            phone_num = str(objts.phone)
+            break
+
+    profile_dictionary['username'] = str(request.user.username)
+    profile_dictionary['email'] = str(request.user.email)
+    profile_dictionary['f_name'] = f_name
+    profile_dictionary['l_name'] = l_name
+    profile_dictionary['phone'] = phone_num
     print(profile_dictionary['username'])
     print(profile_dictionary['email'])
     return render(request, 'account/dashboard.html',profile_dictionary)

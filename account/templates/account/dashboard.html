@@ -33,12 +33,17 @@
 {% block content %}
 
 <div class="container">
-  <h1>Dashboard</h1>
-  {% for key,value in profile_dictionary.items %}
-  <li>{{key}} : {{value}}</li>
-  {% endfor %}
-  <p>Welcome to your dashboard. You can <a href="">edit your profile</a> or <a href="">change your password</a>.</p>
-  <p>Click here to see your <a href=""> profile</a>.
-  <p>Click here to add <a href="">events</p>
+  <h1 class="text-center">Dashboard</h1>
+  <h4 class="text-center">Hi</h4>
+  <p class="text-center">{{ f_name }} {{ l_name }}</p>
+  <h4 class="text-center">Phone Number:</h4>
+  <p class="text-center">{{ phone }}</p>
+  <h4 class="text-center">Username:</h4>
+  <p class="text-center">{{ username }}</p>
+  <h4 class="text-center">Email:</h4>
+  <p class="text-center">{{ email }}</p>
+  <p class="text-center">Welcome to your dashboard. You can <a href="">edit your profile</a> or <a href="">change your password</a>.</p>
+  <p class="text-center">Click here to see your <a href=""> profile</a>.
+  <p class="text-center">Click here to add <a href="">events</p>
 </div>
 {% endblock %}
