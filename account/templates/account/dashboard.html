@@ -42,7 +42,9 @@
   <p class="text-center">{{ username }}</p>
   <h4 class="text-center">Email:</h4>
   <p class="text-center">{{ email }}</p>
-  <p class="text-center">Welcome to your dashboard. You can <a href="">edit your profile</a> or <a href="">change your password</a>.</p>
+  <h4 class="text-center">College:</h4>
+  <p class="text-center">{{ college }}</p>
+  <p class="text-center">Welcome to your dashboard. You can <a href="{% url 'edit' %}">edit your profile</a> or <a href="">change your password</a>.</p>
   <p class="text-center">Click here to see your <a href=""> profile</a>.
   <p class="text-center">Click here to add <a href="">events</p>
 </div>

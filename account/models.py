@@ -12,7 +12,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=100,null=False,blank=False,default='First')
     last_name = models.CharField(max_length=100,null=False,blank=False,default='Last')
     email = models.EmailField(null=False,blank=False,default='abc@gmail.com')
-    phone = models.CharField(max_length=14,null=True,blank=True,unique=False, default='+919999999999')
+    phone = models.CharField(max_length=10,null=True,blank=True,unique=False, default='9999999999')
 
     college = models.CharField(max_length=100,null=False,blank=False, default='IERT')
 

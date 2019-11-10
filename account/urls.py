@@ -11,4 +11,5 @@ urlpatterns=[
     path('login/', views.user_login,name='login'),#this login only logs in admin"""
     path('logout/',auth_views.LogoutView.as_view(),name='logout'),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('dashboard/edit/', views.edit, name='edit'),
 ]

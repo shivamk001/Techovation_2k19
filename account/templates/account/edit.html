@@ -33,14 +33,28 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-  <h1>Edit your account</h1>
-  <p>You can edit your account using the following form:</p>
-  <form action="." method="post" enctype="multipart/form-data">
-    {{ user_form.as_p }}
-    {{ profile_form.as_p }}
+<div class="container border border-primary text-center">
+  <h2>Edit Details</h2>
+  <small>Leave those fields which don't require correction.</small>
+  <div class="panel-group">
+  <form method="post">
     {% csrf_token %}
-    <p><input type="submit" value="Save changes"></p>
+    {% for field in form %}
+    <div class="panel panel-default">
+        <div class="panel-heading">{{ field.label_tag }}</div>
+    </div>
+        {{ field }}
+        {% if field.help_text %}
+          <br>
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+    {% endfor %}
+    <br><br>
+    <button type="submit">Submit</button>
   </form>
+  </div>
   </div>
 {% endblock %}

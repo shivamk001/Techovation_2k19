@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
 from .models import Profile
-from .forms import UserRegistrationForm, LoginForm
+from .forms import UserRegistrationForm, LoginForm, UserEditForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -72,6 +72,7 @@ def dashboard(request):
             f_name = str(objts.first_name)
             l_name = str(objts.last_name)
             phone_num = str(objts.phone)
+            college = str(objts.college)
             break
 
     profile_dictionary['username'] = str(request.user.username)
@@ -79,6 +80,45 @@ def dashboard(request):
     profile_dictionary['f_name'] = f_name
     profile_dictionary['l_name'] = l_name
     profile_dictionary['phone'] = phone_num
+    profile_dictionary['college'] = college
     print(profile_dictionary['username'])
     print(profile_dictionary['email'])
     return render(request, 'account/dashboard.html',profile_dictionary)
+
+@login_required
+def edit(request):
+    if request.method == 'POST':
+        form = UserEditForm(request.POST)
+
+        if form.is_valid():
+            username = str(request.user.username)
+            list_users = list(Profile.objects.all())
+            for objts in list_users:
+                if str(objts.user) == username:
+                    object = objts
+                    break
+
+            if form.cleaned_data['first_name'] != '':
+                object.first_name = form.cleaned_data['first_name']
+
+            if form.cleaned_data['last_name'] != '':
+                object.last_name = form.cleaned_data['last_name']
+
+            '''
+            if form.cleaned_data['email'] != '':
+                object.email = form.cleaned_data['email']
+            '''
+            
+            if form.cleaned_data['phone_number'] != '':
+                object.phone = form.cleaned_data['phone_number']
+
+            if form.cleaned_data['college'] != '':
+                object.college = form.cleaned_data['college']
+
+
+            object.save()
+
+            return redirect('dashboard')
+    else:
+        form = UserEditForm()
+    return render(request, 'account/edit.html', {'form':form})
