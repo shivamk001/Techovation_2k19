@@ -9,8 +9,8 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=100,null=False,blank=False,default='First')
-    last_name = models.CharField(max_length=100,null=False,blank=False,default='Last')
+    f_name = models.CharField(max_length=100,null=False,blank=False,default='First')
+    l_name = models.CharField(max_length=100,null=False,blank=False,default='Last')
     email = models.EmailField(null=False,blank=False,default='abc@gmail.com')
     phone = models.CharField(max_length=10,null=True,blank=True,unique=False, default='9999999999')
 
@@ -25,7 +25,7 @@ class Profile(models.Model):
     ('Diploma Second Year','Diploma Second Year'),
     ('Diploma Third Year','Diploma Third Year'),
     )
-    year=models.CharField(max_length=30,null=False, choices=YEAR_CHOICES,default='first')
+    year = models.CharField(max_length=30,null=False, choices=YEAR_CHOICES,default='first')
 
     payment_status=models.BooleanField(default=False)
 

@@ -30,14 +30,31 @@ class LoginForm(forms.Form):
 ## WHICH ARE ATTRIBUTES OF THE BUILT_IN DJANGO Model
 
 class UserEditForm(forms.ModelForm):
+    '''
     first_name = forms.CharField(max_length=30, required=False, strip=True)#empty_value=True,
     last_name = forms.CharField(max_length=30, required=False,strip=True)#empty_value=True, strip=True)
     #email = forms.CharField(max_length=30, required=False,empty_value=True, strip=True)
-    phone_number = forms.CharField(min_length=10, max_length=10, required=False,strip=True)#empty_value=True, strip=True)
+
     college = forms.CharField(max_length=100, required=False,strip=True)#empty_value=True, strip=True)
+
+    YEAR_CHOICES=(
+    ('First Year','First Year'),
+    ('Second Year','Second Year'),
+    ('Third Year','Third Year'),
+    ('Forth Year','Forth Year'),
+    ('Diploma First Year','Diploma First Year'),
+    ('Diploma Second Year','Diploma Second Year'),
+    ('Diploma Third Year','Diploma Third Year'),
+    )
+    year = forms.CharField(max_length=30, choices=YEAR_CHOICES,default='first')
+    '''
+    first_name = forms.CharField(max_length=30, required=False, strip=True)#empty_value=True,
+    last_name = forms.CharField(max_length=30, required=False,strip=True)#empty_value=True, strip=True)
+    phone_number = forms.CharField(min_length=10, max_length=10, required=False,strip=True)#empty_value=True, strip=True)
+    college_name = forms.CharField(max_length=100, required=False,strip=True)#empty_value=True, strip=True)
     class Meta:
-        model = User
-        fields= ('first_name', 'last_name', 'phone_number', 'college')
+        model = Profile
+        fields= ('first_name', 'last_name', 'phone_number', 'college_name', 'year')
 
 class AddEventsTech(forms.ModelForm):
     class Meta:

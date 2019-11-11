@@ -18,21 +18,33 @@ def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            print("USERNAME:", user[0])
-            user.refresh_from_db()
-            username = form.cleaned_data.get('username')
-            user.profile.first_name = form.cleaned_data.get('first_name')
-            user.profile.last_name = form.cleaned_data.get('last_name')
-            user.profile.email = form.cleaned_data.get('email')
-            user.profile.phone = form.cleaned_data.get('phone_number')
+            #user = form.save()
+            #print("USERNAME:", user[0])
+            #user.refresh_from_db()
+            #username = form.cleaned_data.get('username')
+            #user.profile.first_name = form.cleaned_data.get('first_name')
+            #user.profile.last_name = form.cleaned_data.get('last_name')
+            #user.profile.email = form.cleaned_data.get('email')
+            #user.profile.phone = form.cleaned_data.get('phone_number')
             #user.profile.username = username
-            user.save()
+            #user.save()
 
-            raw_password = form.cleaned_data.get('password1')
+            #raw_password = form.cleaned_data.get('password1')
+            #user = authenticate(username=username, password=raw_password)
+            #login(request, user)
+            user = form.save()
+            username = form.cleaned_data['username']
+            f_name = form.cleaned_data['first_name']
+            l_name = form.cleaned_data['last_name']
+            email = form.cleaned_data['email']
+            phone_num = form.cleaned_data['phone_number']
+            college_name=form.cleaned_data['college']
+            new_user = Profile(user=user, f_name=f_name, l_name=l_name,email=email,phone=phone_num,college=college_name)
+            new_user.save()
+            raw_password = form.cleaned_data['password1']
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('home')
+            return redirect('dashboard')
     else:
         form = UserRegistrationForm()
     return render(request, 'account/register.html', {'form': form})
@@ -69,10 +81,11 @@ def dashboard(request):
     for objts in list_users:
         if str(objts.user) == username:
             email = str(objts.email)
-            f_name = str(objts.first_name)
-            l_name = str(objts.last_name)
+            f_name = str(objts.f_name)
+            l_name = str(objts.l_name)
             phone_num = str(objts.phone)
             college = str(objts.college)
+            year = str(objts.year)
             break
 
     profile_dictionary['username'] = str(request.user.username)
@@ -81,6 +94,7 @@ def dashboard(request):
     profile_dictionary['l_name'] = l_name
     profile_dictionary['phone'] = phone_num
     profile_dictionary['college'] = college
+    profile_dictionary['year'] = year
     #print(profile_dictionary['username'])
     #print(profile_dictionary['email'])
     return render(request, 'account/dashboard.html',profile_dictionary)
@@ -99,10 +113,10 @@ def edit(request):
                     break
 
             if form.cleaned_data['first_name'] != '':
-                object.first_name = form.cleaned_data['first_name']
+                object.f_name = form.cleaned_data['first_name']
 
             if form.cleaned_data['last_name'] != '':
-                object.last_name = form.cleaned_data['last_name']
+                object.l_name = form.cleaned_data['last_name']
 
             '''
             if form.cleaned_data['email'] != '':
@@ -112,8 +126,8 @@ def edit(request):
             if form.cleaned_data['phone_number'] != '':
                 object.phone = form.cleaned_data['phone_number']
 
-            if form.cleaned_data['college'] != '':
-                object.college = form.cleaned_data['college']
+            if form.cleaned_data['college_name'] != '':
+                object.college = form.cleaned_data['college_name']
 
 
             object.save()
