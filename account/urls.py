@@ -13,4 +13,7 @@ urlpatterns=[
     path('logout/',auth_views.LogoutView.as_view(),name='logout'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('dashboard/edit/', views.edit, name='edit'),
+    path('dashboard/add_non_tech',views.add_events_nontech, name='add_non_tech'),
+    path('dashboard/add_tech',views.add_events_tech, name='add_tech'),
+    path('dashboard/my_events',views.my_events,name='my_events'),
 ]

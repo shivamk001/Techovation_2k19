@@ -66,50 +66,19 @@ th, td {
 
 {% block content %}
 <div class="container">
-  <h1>YOUR PROFILE</h1>
-  <table style="width:50%">
-    <tr>
-      <th>USERNAME:</th>
-      <td>{{ username }}</td>
-    </tr>
-
-    <tr>
-      <th>EMAIL:</th>
-      <td>{{ email }}</td>
-    </tr>
-
-    <tr>
-    <th>CONTACT NUMBER:</th>
-    <td>{{ phone }}</td>
-    </tr>
-
-    <tr>
-    <th>COLLEGE:</th>
-    <td>{{ college }}</td>
-    </tr>
-
-    <tr>
-    <th>COLLEGE YEAR:</th>
-    <td>{{ year }}</td>
-    </tr>
-
-    <tr>
-    <th>PAYMENT STATUS:</th>
-    <td>{{ payment_status }}</td>
-    </tr>
-
-    <tr>
-    <th>TECHNICAL EVENTS:</th>
-    {% for e in event_list_technical %}
-      <td>{{ e }}<br></td>
+  <h1>YOUR SELECTED EVENTS</h1>
+  <h3>TECHNICAL EVENTS</h3>
+  <ul>
+    {% for e in tech %}
+      <li>{{ e }}</li>
+  </ul>
     {% endfor %}
-    </tr>
 
-    <th>NON-TECHNICAL EVENTS:</th>
-    {% for e in event_list_non_technical %}
-      <td>{{ e }}<br></td>
+  <h3>NON-TECHNICAL EVENTS</h3>
+  <ul>
+    {% for e in non_tech %}
+      <li>{{ e }}</li>
+  </ul>
     {% endfor %}
-    </tr>
-  </table>
   </div>
 {% endblock %}

@@ -31,15 +31,15 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-  <h1>Edit your account</h1>
-  <p>You can edit your account using the following form:</p>
+<div class="container border border-primary text-center rounded">
+  <h1>Select Non-Technical Events</h1>
+  <small>Select from the list and click the "Add Event" Button:</p>
   <form action="." method="post" enctype="multipart/form-data">
-    {{ event_form.as_p }}
+    {{ form.as_p }}
     {% csrf_token %}
-    <p><input type="submit" value="Save changes"></p>
+    <button type="submit" class="btn btn-outline-primary">Add Event</button>
   </form>
-  <p>Click here to see your <a href="{% url "profile" %}"> profile</a>.
-  <p>Click here to return to your <a href="{% url "dashboard" %}"> dashboard</a>.
+  <p>Click here to see your <a href="{% url "dashboard" %}"> profile</a>.
+  <!--<p>Click here to return to your <a href="{% url "dashboard" %}"> dashboard</a>.-->
   </div>
 {% endblock %}

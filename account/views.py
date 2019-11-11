@@ -81,8 +81,8 @@ def dashboard(request):
     profile_dictionary['l_name'] = l_name
     profile_dictionary['phone'] = phone_num
     profile_dictionary['college'] = college
-    print(profile_dictionary['username'])
-    print(profile_dictionary['email'])
+    #print(profile_dictionary['username'])
+    #print(profile_dictionary['email'])
     return render(request, 'account/dashboard.html',profile_dictionary)
 
 @login_required
@@ -123,10 +123,17 @@ def edit(request):
         form = UserEditForm()
     return render(request, 'account/edit.html', {'form':form})
 
+@login_required
 def add_events_tech(request):
-    if request.method == 'POST':
+    print('Add Tech Events0')
+    print(request.method)
+    if request.method == 'GET':
+        print('Add Tech Events3')
+        form = AddEventsTech()
+    else:
+        print(request.method)
         form = AddEventsTech(request.POST)
-
+        print('Add Tech Events1')
         if form.is_valid():
             username = str(request.user.username)
             list_users = list(Profile.objects.all())
@@ -134,22 +141,28 @@ def add_events_tech(request):
                 if str(objts.user) == username:
                     object_user = objts
                     break
+            print('Add Tech Events2')
+            print(object_user.user)
 
 
-            event_tech =form.cleaned_data['event']
+            event_tech =form.cleaned_data['event_name_tech']
             list_events = list(Event_Technical.objects.all())
-            for objts in list.events:
+            for objts in list_events:
                 if str(objts.event_name_tech) == event_tech:
                     object_event = objts
+                    break
+            print(object_event.event_name_tech)
+
             object = Participation_Tech(participant = object_user, event = object_event)
+            print(object.participant.user)
+            print(object.event.event_name_tech)
             object.save()
 
-            return redirect('event_tech')
+            return redirect('add_tech')
 
-        else:
-            form = AddEventsTech(request.POST)
-        return render(request, 'account/event_tech_add.html', {'form':form})
+    return render(request, 'account/event_tech_add.html', {'form':form})
 
+@login_required
 def add_events_nontech(request):
     if request.method == 'POST':
         form = AddEventsNonTech(request.POST)
@@ -162,17 +175,42 @@ def add_events_nontech(request):
                     object_user = objts
                     break
 
-
             event_non_tech =form.cleaned_data['event']
             list_events = list(Event_Non_Technical.objects.all())
             for objts in list.events:
                 if str(objts.event_name_tech) == event_tech:
                     object_event = objts
+                    break
+
             object = Participation_NonTech(participant = object_user, event = object_event)
             object.save()
 
-            return redirect('event_non_tech')
+            return redirect('add_non_tech')
 
-        else:
-            form = AddEventsTech(request.POST)
-        return render(request, 'account/event_non_tech_add.html', {'form':form})
+    else:
+        form = AddEventsTech()
+    return render(request, 'account/event_non_tech_add.html', {'form':form})
+
+@login_required
+def my_events(request):
+    user_name =str(request.user.username)
+    print(user_name)
+    #technical
+    list_ = list(Participation_Tech.objects.all())
+    user_event_list_tech= []
+    for objts in list_:
+        if str(objts.participant.user) == user_name:
+            user_event_list_tech.append(objts.event.event_name_tech)
+    user_event_list_tech = set(user_event_list_tech)
+
+    #non-Technical
+    list_ = list(Participation_NonTech.objects.all())
+    user_event_list_nontech = []
+    for objts in list_:
+        if str(objts.participant.user) == username:
+            user_event_list_tech.append(objts.event.event_name_non_tech)
+    user_event_list_nontech = set(user_event_list_nontech)
+
+    event_dict = {'tech': user_event_list_tech, 'non_tech':user_event_list_nontech}
+
+    return render(request, 'account/selected_events.html', event_dict)

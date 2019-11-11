@@ -9,10 +9,12 @@
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"  >
   <span class="navbar-toggler-icon  "></span>
 </button>
-
+<h1 class="text-center text-white">Dashboard</h1>
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
   <ul class="navbar-nav ml-auto">
     <!--
+    <h1 class="text-center">Dashboard</h1>
+
     <li class="nav-item ">
       <a class="nav-link" href="{% url 'home' %}">HOME <span class="sr-only">(current)</span></a>
     </li>-->
@@ -33,19 +35,40 @@
 {% block content %}
 
 <div class="container">
-  <h1 class="text-center">Dashboard</h1>
-  <h4 class="text-center">Hi</h4>
-  <p class="text-center">{{ f_name }} {{ l_name }}</p>
-  <h4 class="text-center">Phone Number:</h4>
-  <p class="text-center">{{ phone }}</p>
-  <h4 class="text-center">Username:</h4>
-  <p class="text-center">{{ username }}</p>
-  <h4 class="text-center">Email:</h4>
-  <p class="text-center">{{ email }}</p>
-  <h4 class="text-center">College:</h4>
-  <p class="text-center">{{ college }}</p>
-  <p class="text-center">Welcome to your dashboard. You can <a href="{% url 'edit' %}">edit your profile</a> or <a href="">change your password</a>.</p>
-  <p class="text-center">Click here to see your <a href=""> profile</a>.
-  <p class="text-center">Click here to add <a href="">events</p>
+  <!--<h1 class="text-center">Dashboard</h1>-->
+  <h4 style= "border-radius: 50px;width: 50%;margin: 10px auto;">Your Details:</h4>
+  <table style="border-radius: 10px;width: 50%;margin: 10px auto;">
+  <tr>
+    <th>Full Name:</th>
+    <td>{{ f_name }} {{ l_name }}</th>
+  </tr>
+
+  <tr>
+    <th>Phone Number:</th>
+    <td>{{ phone }}</th>
+  </tr>
+
+  <tr>
+  <th>Username:</th>
+  <td>{{ username }}</th>
+  </tr>
+
+  <tr>
+  <th>Email:</th>
+  <td>{{ email }}</th>
+  </tr>
+
+  <tr>
+  <th>College:</th>
+  <td>{{ college }}</th>
+  </tr>
+
+  </table>
+
+  <p class="text-center">You can <a href="{% url 'edit' %}">edit your profile</a>.</p>
+  <!--<p class="text-center">Click here to see your <a href=""> profile</a>.-->
+  <p class="text-center">Click here to select <a href="{% url 'add_tech' %}">technical events</a> in which you want to partipate.</p>
+  <p class="text-center">Click here to select <a href="{% url 'add_non_tech' %}">non-technical events</a> in which you want to participate.</p>
+  <p class="text-center">Click here to see your <a href="{%url 'my_events' %}"> selected events</a>.</p>
 </div>
 {% endblock %}
