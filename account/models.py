@@ -35,7 +35,7 @@ class Profile(models.Model):
         return f'{self.user.first_name} {self.user.last_name}'
 
 class Event_Technical(models.Model):
-        EVENT_CHOICES = (
+        EVENT_CHOICES_TECH = (
         ('AUTO QUIZ','AUTO QUIZ'),
         ('BRIDGE IT','BRIDGE IT'),
         ('BUG-D-CODE','BUG-D-CODE'),
@@ -61,13 +61,13 @@ class Event_Technical(models.Model):
         ('WEB DEXTRO','WEB-DEXTRO'),
         )
 
-        event_name_tech = models.CharField(max_length=200,choices=EVENT_CHOICES, help_text='Enter Event Name (e.g. CodeGolf)')
+        event_name_tech = models.CharField(max_length=200,choices=EVENT_CHOICES_TECH, help_text='Enter Event Name (e.g. CodeGolf)')
 
         def __str__(self):
             return ("{}".format(self.event_name_tech))
 
 class Event_Non_Technical(models.Model):
-    EVENT_CHOICES = (
+    EVENT_CHOICES_NON_TECH = (
     ('KAVYANIKAL','KAVYANIKAL'),
     ('SOLICIT', 'SOLICIT'),
     ('HINDI DEBATE','HINDI DEBATE'),
@@ -98,7 +98,7 @@ class Event_Non_Technical(models.Model):
     ('THE RUBIKS CUBE','THE RUBIKS CUBE'),
     )
 
-    event_name_non_tech = models.CharField(max_length=200,choices=EVENT_CHOICES, help_text='Enter Event Name (e.g. CodeGolf)')
+    event_name_non_tech = models.CharField(max_length=200,choices=EVENT_CHOICES_NON_TECH, help_text='Enter Event Name (e.g. Futsal)')
 
     def __str__(self):
         return ("{}".format(self.event_name_non_tech))
